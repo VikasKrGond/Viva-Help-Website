@@ -10,6 +10,25 @@
 <link href="css/style.css" rel="stylesheet" type="text/css"> 
 <link href="css/font-awesome.css" rel="stylesheet" type="text/css"> 
 <link href="css/animate.css" rel="stylesheet" type="text/css">
+	<style>
+         html {
+  font-family: 'Raleway', sans-serif;
+  padding: 3em 2em;
+  font-size: 18px;
+  background: rgb(226, 218, 218);
+  color: rgb(7, 7, 7)
+}
+
+h1,h2 {
+  font-weight: 200;
+  margin: 0.4em 0;
+}
+h1 { font-size: 3.5em; }
+h2 {
+  color: #888;
+  font-size: 2em;
+}
+     </style>
 </head>
 <body>
  <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -64,7 +83,71 @@
 </header>
 <!--Header_section--> 
 <marquee style="color: rgb(160, 57, 16);"> <b>IMPORTANT :</b> Chemistry Class Quiz on <b>21 Jan thrusday</b>.Topic:Fuel and Chemical Bonding       ECL class test Most Probably on 25 Jan</marquee>
-<section id="aboutUs"><!--Aboutus-->
+ <script>
+        var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+    </script>
+    <h2>Viva Help is
+        <span
+           class="txt-rotate"
+           data-period="2000"
+           data-rotate='[ "One Stop Solution to all viva stuff.", "for CSL", "for CHL.", "for boring one like ECL", "and MEL!" ]'></span>
+      </h2> 
+	<section id="aboutUs"><!--Aboutus-->
 <div class="inner_wrapper about-us aboutUs-container fadeInLeft animated wow">
   <div class="container">
     <div class="inner_section">
